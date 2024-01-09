@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -7,7 +8,7 @@ SECRET_KEY = 'django-insecure-u&(d4=vssqh=xr!-+q04821xw9$rcqnu^mr1&dymy5#!no!=qx
 
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,7 +57,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-DATABASES = {}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "postgres",
+        'USER': "postgres",
+        'PASSWORD': 'StrongestAvenger#23',
+        'HOST': "db.gcpfmhoqcumvulrvxytk.supabase.co",
+        'PORT': "5432",
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -84,8 +94,10 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+STATIC_URL = "static/"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
